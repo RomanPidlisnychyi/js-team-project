@@ -17,37 +17,37 @@
     @media (min-width: 1024px) {
         width: 960px;
     }
+    &__imgWrap {
+        margin-bottom: 16px;
+    }
+    &__img {
+        display: block;
+        width: 274px;
+        height: auto;
+    }
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__title {
+        font-size: 30px;
+        margin-bottom: 16px;
+    }
+    &__table {
+        width: 274px;
+        margin-bottom: 30px;
+        &__row:nth-child(even) {
+            background-color: #addad6;
+        }
+    }
+    &__about {
+        margin-bottom: 15px;
+        align-self: start;
+    }
 }
 
-.detailsPage__poster {
-    margin-bottom: 16px;
-}
-
-.poster__img {
-    display: block;
-    width: 274px;
-    height: auto;
-}
-
-.detailsPage__content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.content__title {
-    font-size: 30px;
-    margin-bottom: 16px;
-}
-
-.detailsPage__table {
-    width: 274px;
-}
-
-.table__row:nth-child(even) {
-    background-color: teal;
-}
-
+//!TODO: container width
 td {
     padding: 5px 15px;
 }
