@@ -1,32 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Filmoteka</title>
-</head>
-
-<body>
-    <main class="main">
-        <!-- <section class="detailsPage">
+        <section class="detailsPage">
             <div class="detailsPage__poster">
-                <img class="poster__img" src="https://image.tmdb.org/t/p/w500///uOw5JD8IlD546feZ6oxbIjvN66P.jpg" alt="Rogue" />
+                <img class="poster__img" src="https://image.tmdb.org/t/p/w500//{{poster_path}}" alt="{{title}}" />
             </div>
             <div class="detailsPage__content">
-                <h2 class="content__title">Rogue</h2>
+                <h2 class="content__title">{{title}}{{release_date}}</h2>
                 <table class="detailsPage__table">
                     <tr class="table__row">
-                        <td>vote</td>
-                        <td>6</td>
+                        <td >vote</td>
+                        <td>{{vote_average}}</td>
                     </tr>
                     <tr class="table__row">
                         <td>popularity</td>
-                        <td>435.961</td>
+                        <td>{{popularity}}</td>
                     </tr>
                     <tr class="table__row">
                         <td>original title</td>
-                        <td>Rogue</td>
+                        <td>{{title}}</td>
                     </tr>
                     <tr class="table__row">
                         <td>genre</td>
@@ -34,8 +23,4 @@
                     </tr>
                 </table>
             </div>
-        </section> -->
-    </main>
-</body>
-
-</html>
+        </section>

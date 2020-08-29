@@ -1,15 +1,15 @@
 export default {
-    baseURL: 'https://cors-anywhere.herokuapp.com/https://api.themoviedb.org/3/movie/550?api_key=',
-    apiKey: '3ca4f0fa98e22b27d06819a16b26fd68',
+    baseURL: 'https://api.themoviedb.org/3/movie/popular?',
+    apiKey: 'api_key=3ca4f0fa98e22b27d06819a16b26fd68',
+    page: 1,
+    perPage: '',
+    queryString: '',
     get() {
         const asyncFetchFilms = async() => {
-            const films = await fetch(`${this.baseURL}${this.apiKey}`)
-                .then(response => response)
-                .then(data => console.log(data))
-                .catch(error => console.log(error));
+            const response = await fetch(`${this.baseURL}${this.apiKey}`);
+            const data = await response.json();
 
-            console.log(films);
-            return films;
+            return data.results;
         };
 
         return asyncFetchFilms();
