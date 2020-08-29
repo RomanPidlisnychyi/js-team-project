@@ -1,0 +1,12 @@
+ <div class="wrapper">
+        <section class="sectionFilms">
+            <ul class="sectionFilms__list">
+                {{#each this}}
+                <li class="sectionFilms__item">
+                    <img class="sectionFilms__img" src="https://image.tmdb.org/t/p/w500/{{backdrop_path}}" alt="">
+                    <h2 class="sectionFilms__title">{{title}}</h2>
+                </li>
+                {{/each}}
+            </ul>
+        </section>
+</div>
