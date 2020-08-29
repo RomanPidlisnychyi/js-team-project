@@ -1,38 +1,26 @@
         <section class="detailsPage">
-            <div class="detailsPage__imgWrap">
-                <img class="detailsPage__img" src="https://image.tmdb.org/t/p/w500/{{poster_path}}" alt="{{title}}" />
+            <div class="detailsPage__poster">
+                <img class="poster__img" src="https://image.tmdb.org/t/p/w500//{{poster_path}}" alt="{{title}}" />
             </div>
             <div class="detailsPage__content">
-                <h2 class="detailsPage__title">{{title}}</h2>
+                <h2 class="content__title">{{title}}{{release_date}}</h2>
                 <table class="detailsPage__table">
-                    <tr class="detailsPage__table__row">
-                        <td >release date</td>
-                        <td>{{release_date}}</td>
-                    </tr>
-                    <tr class="detailsPage__table__row">
+                    <tr class="table__row">
                         <td >vote</td>
                         <td>{{vote_average}}</td>
                     </tr>
-                    <tr class="detailsPage__table__row">
+                    <tr class="table__row">
                         <td>popularity</td>
                         <td>{{popularity}}</td>
                     </tr>
-                    <tr class="detailsPage__table__row">
+                    <tr class="table__row">
                         <td>original title</td>
                         <td>{{title}}</td>
                     </tr>
-                    <tr class="detailsPage__table__row">
+                    <tr class="table__row">
                         <td>genre</td>
                         <td>in progress</td>
                     </tr>
                 </table>
-                <h3 class="detailsPage__about">About</h2>
-                <p class="detailsPage__about__text">{{overview}}</p>
-                <ul class="detailsPage__btnList">
-                    <li class="detailsPage__btnItem">
-                        <button class="detailsPage__btnAddFavorite">Add to fave</button>
-                        <button class="detailsPage__btnAddWatched"><i class="fas fa-video"></i>Add to watched</button>
-                    </li>
-                </ul>
             </div>
         </section>

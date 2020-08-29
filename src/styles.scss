@@ -1,9 +1,4 @@
-@import "sass/normalize";
-@import "sass/reset";
-@import "./sass/helpers/variables.scss";
-@import "./sass/helpers/placeholders.scss";
-@import "./sass/helpers/mixins.scss";
-@import "./sass/bodyFlex.scss";
-@import "./sass/header.scss";
-@import "sass/detailsPage.scss";
-@import "./sass/footer.scss";
+@import 'sass/reset';
+@import 'sass/normalize';
+@import 'sass/detailsPage.scss';
+@import 'sass/mainInput.scss'
