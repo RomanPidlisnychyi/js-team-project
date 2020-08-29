@@ -1,0 +1,86 @@
+$base-color: #addad6;
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detailsPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @media (min-width: 320px) {
+        width: 274px;
+    }
+    @media (min-width: 768px) {
+        width: 720px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    @media (min-width: 1024px) {
+        width: 915px;
+    }
+    &__imgWrap {
+        margin-bottom: 16px;
+    }
+    &__img {
+        width: 274px;
+        display: block;
+        height: auto;
+        @media (min-width: 768px) {
+            width: 358px;
+        }
+        @media (min-width: 1024px) {
+            width: 428px;
+        }
+    }
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @media (min-width: 768px) {
+            width: 340px;
+        }
+        @media (min-width: 1024px) {
+            width: 451px;
+        }
+    }
+    &__title {
+        font-size: 30px;
+        margin-bottom: 16px;
+    }
+    &__table {
+        width: 274px;
+        margin-bottom: 30px;
+        &__row:nth-child(even) {
+            background-color: $base-color;
+        }
+    }
+    &__about {
+        margin-bottom: 15px;
+        align-self: start;
+        &__text {
+            margin-bottom: 20px;
+        }
+    }
+    &__btnList {
+        align-self: flex-start;
+        margin-bottom: 20px;
+    }
+    &__btnItem>button {
+        background-color: $base-color;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 15px;
+        border: none;
+        outline: none;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+//!TODO: container width
+td {
+    padding: 5px 15px;
+}
