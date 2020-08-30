@@ -1,25 +1,27 @@
-import './styles.scss';
-import './js/initialHomePage';
-import './js/searchAndPlaginationHomePage';
-import './js/navigation';
-import './js/filmDetailsPage';
-import './js/libraryPage';
-import apiServices from './js/apiServices';
-import detailsPage from './templates/detailsPage.hbs';
+import "./styles.scss";
+import "./js/initialHomePage";
+import "./js/searchAndPlaginationHomePage";
+import "./js/navigation";
+import "./js/filmDetailsPage";
+import "./js/libraryPage";
+import "./js/detailsPage";
 
-// https://image.tmdb.org/t/p/w500//TnOeov4w0sTtV2gqICqIxVi74V.jpg
+// import apiServices from "./js/apiServices";
+// import detailsPage from "./templates/detailsPage.hbs";
 
-const getFilms = async() => {
-    const films = await apiServices.get();
-    console.log(films[0]);
-    // const markup = `<img src="https://image.tmdb.org/t/p/w500//${films[0].poster_path}" alt="">
-    // `;
+// // https://image.tmdb.org/t/p/w500//TnOeov4w0sTtV2gqICqIxVi74V.jpg
 
-    const markup = detailsPage(films[2]);
+// const getFilms = async () => {
+//   const films = await apiServices.get();
+//   console.log(films[0]);
+//   // const markup = `<img src="https://image.tmdb.org/t/p/w500//${films[0].poster_path}" alt="">
+//   // `;
 
-    // console.log(markup);
+//   const markup = detailsPage(films[2]);
 
-    document.querySelector('.main').insertAdjacentHTML('beforeend', markup);
-};
+//   // console.log(markup);
 
-getFilms();
+//   // document.querySelector('.main').insertAdjacentHTML('beforeend', markup);
+// };
+
+// getFilms();

@@ -1,0 +1,10 @@
+@import './helpers/variables.scss';
+@import './helpers/mixins.scss';
+@import './helpers/placeholders.scss';
+@import './bodyFlex.scss';
+@import './header.scss';
+@import './footer.scss';
+
+.show-section {
+  display: none;
+}

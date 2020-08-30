@@ -1,0 +1,10 @@
+.sectionFilms__list {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    @media (min-width: 768px) {
+        justify-content: space-between;
+    }
+}
