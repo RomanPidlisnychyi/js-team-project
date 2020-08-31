@@ -1,0 +1,21 @@
+%wrapper {
+  width: 320px;
+  padding: 0 20px;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    width: 768px;
+    padding: 0 25px;
+  }
+
+  @media (min-width: 1024px) {
+    width: 1024px;
+    padding: 0 35px;
+  }
+}
+
+%list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
