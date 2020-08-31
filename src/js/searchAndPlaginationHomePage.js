@@ -5,40 +5,56 @@ import { initHomePage, createCardFunc } from './initialHomePage';
 
 const initSearchedFilms = async() => {
     const films = await apiServices.getSearch();
-    if (films.length < 20) {
-        document.querySelector('#js-nextButton').classList.add('homePage__hide');
-    } else {
-        document.querySelector('#js-nextButton').classList.remove('homePage__hide');
-    }
+    nextButtonHide(films);
     createCardFunc(films);
 };
 
 const initFilms = async() => {
     const films = await apiServices.get();
-    if (films.length < 20) {
+    nextButtonHide(films);
+    createCardFunc(films);
+};
+
+function nextButtonHide(element) {
+    if (element.length < 20) {
         document.querySelector('#js-nextButton').classList.add('homePage__hide');
     } else {
         document.querySelector('#js-nextButton').classList.remove('homePage__hide');
     }
-    createCardFunc(films);
-};
+}
 
-document
-    .querySelector('.main-input')
-    .insertAdjacentHTML('beforeend', mainInput());
-document
-    .querySelector('.main-pagination')
-    .insertAdjacentHTML('beforeend', mainButton());
-document.querySelector('.js-plaginationPageNumber').textContent =
-    apiServices.page;
+export function renderMainInput() {
+    const markup = mainInput();
+
+    document.querySelector('.main').insertAdjacentHTML('beforeend', markup);
+}
+
+export function renderMainPaginationBlock() {
+    const markup = mainButton();
+
+    document.querySelector('.main').insertAdjacentHTML('beforeend', markup);
+}
+
+if (document.querySelector('.js-plaginationPageNumber') !== null) {
+    document.querySelector('.js-plaginationPageNumber').textContent =
+        apiServices.page;
+    document
+        .querySelector('body')
+        .addEventListener('click', plaginationNavigation);
+    document.querySelector('#js-backButton').classList.add('homePage__hide');
+    document.querySelector('body').addEventListener('input', searchFilms);
+    document.querySelector('body').addEventListener('keydown', searchFilmsEnter);
+}
+
+// document.querySelector('.js-plaginationPageNumber').textContent =
+//     apiServices.page;
 document.querySelector('body').addEventListener('click', plaginationNavigation);
-document.querySelector('#js-backButton').classList.add('homePage__hide');
+// document.querySelector('#js-backButton').classList.add('homePage__hide');
 document.querySelector('body').addEventListener('input', searchFilms);
 document.querySelector('body').addEventListener('keydown', searchFilmsEnter);
 
-function searchFilms(event) {
+export function searchFilms(event) {
     apiServices.query = event.target.value;
-    // localStorage.setItem('input', event.target.value);
 }
 
 function errorNotis() {
@@ -69,7 +85,6 @@ function searchFilmsEnter(event) {
             return;
         }
 
-        // event.preventDefault();
         errorNotis();
         initSearchedFilms();
         clearInput();
@@ -81,14 +96,24 @@ function searchFilmsEnter(event) {
 }
 
 function plaginationNavigation(event) {
+    if (document.querySelector('.detailsPage') !== null) {
+        return;
+    }
+
     if (
         event.target === document.querySelector('img[alt="LOGO"]') ||
         event.target === document.querySelector('li.nav-menu__item--home') ||
         event.target === document.querySelector('li.nav-menu__item--library')
     ) {
         apiServices.query = '';
+        if (document.querySelector('.homePage__error') !== null) {
+            document
+                .querySelector('.homePage__formblock')
+                .removeChild(document.querySelector('.homePage__error'));
+        }
     }
     if (event.target === document.querySelector('#js-nextButton')) {
+        console.log(event.target);
         apiServices.page += 1;
         document.querySelector('.js-plaginationPageNumber').textContent =
             apiServices.page;
@@ -151,5 +176,5 @@ function clearNotification() {
 }
 
 function clearCardList() {
-    document.querySelector('.main-card-list').innerHTML = '';
+    document.querySelector('.sectionFilms__list').innerHTML = '';
 }

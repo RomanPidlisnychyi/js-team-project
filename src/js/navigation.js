@@ -21,26 +21,13 @@ const navRefs = {
     logo: document.querySelector('.logo'),
 };
 
-navRefs.homeBtn.addEventListener('click', showHomePage);
-navRefs.footerBtn.addEventListener('click', returnToStart);
-navRefs.logo.addEventListener('click', showHomePage);
-
 function showHomePage() {
-    clearMainCardListHTML();
     apiServices.page = 1;
-    document.querySelector('.js-plaginationPageNumber').textContent =
-        apiServices.page;
     initHomePage();
 }
 
-function clearMainCardListHTML() {
-    refs.mainCardList.innerHTML = '';
-    localStorage.removeItem('input');
-}
-
 function clearMainHTML() {
-    refs.mainCardList.innerHTML = '';
-    localStorage.removeItem('input');
+    document.querySelector('.main').innerHTML = '';
 }
 
 function returnToStart() {
@@ -51,13 +38,45 @@ function returnToStart() {
     });
 }
 
-document.querySelector('body').addEventListener('click', showDetails);
+document.querySelector('body').addEventListener('click', onBodyClick);
 
-function showDetails(e) {
-    if (e.target.nodeName !== 'IMG') {
-        return;
+function onBodyClick(event) {
+    if (event.target.dataset.id !== undefined) {
+        if (document.querySelector('.detailsPage') !== null) {
+            return;
+        }
+
+        clearMainHTML();
+
+        showDetails(event);
     }
-    clearMainHTML();
 
+    if (
+        event.target === document.querySelector('img[alt="LOGO"]') ||
+        event.target === document.querySelector('li.nav-menu__item--home')
+    ) {
+        apiServices.selectedMovieId = 0;
+        apiServices.firstLoadPage = false;
+        clearMainHTML();
+        removeClassDetaislPage();
+        showHomePage();
+    }
+
+    // if (event.target === document.querySelector('li.nav-menu__item--library')) {
+    //     console.log('click on library');
+    // }
+}
+
+function showDetails(event) {
+    apiServices.selectedMovieId = Number(event.target.dataset.id);
     getFilmDetails();
+    addClassDetaislPage();
+}
+
+function addClassDetaislPage() {
+    document.querySelector('.main').classList.add('main-detailsPage');
+}
+
+function removeClassDetaislPage() {
+    document.querySelector('.main').classList.remove('main-detailsPage');
 }

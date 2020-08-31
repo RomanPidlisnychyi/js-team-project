@@ -6,7 +6,8 @@ export default {
     page: 1,
     perPage: '',
     query: '',
-    selectedMovieId: 539885,
+    selectedMovieId: 0,
+    firstLoadPage: false,
     get() {
         const asyncFetchFilms = async() => {
             const response = await fetch(

@@ -1,11 +1,12 @@
 $base-color: #addad6;
-// .main {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-// }
+.main-detailsPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .detailsPage {
-    margin: 0 auto;
+    // margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
