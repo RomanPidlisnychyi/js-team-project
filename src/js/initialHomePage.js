@@ -18,20 +18,15 @@ export function createCardFunc(items) {
     const markupList = homePageList(items);
     const markupItem = homePageListItems(items);
 
-    // mainCardList.insertAdjacentHTML('beforeend', markup);
-    if (!apiServices.firstLoadPage) {
+    if (document.querySelector('.sectionFilms__list') === null) {
         renderMainInput();
         document.querySelector('.main').insertAdjacentHTML('beforeend', markupList);
         renderMainPaginationBlock();
-        apiServices.firstLoadPage = true;
     } else {
         document
             .querySelector('.sectionFilms__list')
             .insertAdjacentHTML('beforeend', markupItem);
     }
-    // renderMainInput();
-    // document.querySelector('.main').insertAdjacentHTML('beforeend', markup);
-    // renderMainPaginationBlock();
 }
 
 initHomePage();

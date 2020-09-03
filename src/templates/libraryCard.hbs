@@ -1,31 +1,7 @@
-{{!-- {{#each this}}
-    <li>{{name}}</li>
-{{/each}} --}}
-
-
-{{!-- {{#each this}} --}}
-
-    {{!-- <h2 class="country-name">{{name}}</h2> --}}
-    {{!-- <div class="wrap">
-        <div class="wrap-left-side">
-            <p class="info"><span class="label"></span>{{vote_average}}</p>
-            <p class="info"><span class="label">&nbsp;</span>{{title}}</p>
-            {{!-- <ul class="language-list">
-                {{#each languages}}
-                <li>{{name}}</li>
-                {{/each}}
-            </ul> --}}
-        {{!-- </div>
-        <div class="wrap-flag">
-            <img class="img-flag" src="{{backdrop_path}}" alt="{{demonym}}flag">
-        </div>
-    </div> --}} 
-
-
-         {{!-- <li class="sectionFilms__item">
-                        <img class="libraryPage__filmImg" src="{{backdrop_path}}" alt="">
-                        <!-- <h2 class="sectionFilms__title">Ho is?</h2> -->
-                        <p class="library__vote">{{vote_average}}</p>
-                        <p class="library__title">{{original_title}}</p>
+{{#each this}}
+         <li class="libraryPage__FilmItem">
+                        <img class="libraryPage__filmImg" src="https://image.tmdb.org/t/p/w500/{{backdrop_path}}" alt="">
+                        <p class="libraryPage__FilmVote">{{vote_average}}</p>
+                        <p class="libraryPage__FilmTitle">{{original_title}}</p>
                     </li>
-{{/each}} --}}
+{{/each}}

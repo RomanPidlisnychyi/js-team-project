@@ -6,10 +6,10 @@ $base-color: #addad6;
 }
 
 .detailsPage {
-    // margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px 0;
     @media (min-width: 320px) {
         width: 274px;
     }
@@ -20,10 +20,9 @@ $base-color: #addad6;
     }
     @media (min-width: 1024px) {
         width: 915px;
+        padding: 25px 0;
     }
-    &__imgWrap {
-        margin-bottom: 16px;
-    }
+    &__imgWrap {}
     &__img {
         width: 274px;
         display: block;

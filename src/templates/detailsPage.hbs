@@ -23,14 +23,17 @@
                     </tr>
                     <tr class="detailsPage__table__row">
                         <td>genre</td>
-                        <td>{{genre}}</td>
+                        <td>{{#each genres}}
+                            {{this.name}}
+                            {{/each}}
+                        </td>
                     </tr>
                 </table>
                 <h3 class="detailsPage__about">About</h2>
                 <p class="detailsPage__about__text">{{overview}}</p>
                 <ul class="detailsPage__btnList">
                     <li class="detailsPage__btnItem">
-                        <button class="detailsPage__btnAddFavorite">Add to fave</button>
+                        <button class="detailsPage__btnAddFavorite">Add to queue</button>
                         <button class="detailsPage__btnAddWatched"><i class="fas fa-video"></i>Add to watched</button>
                     </li>
                 </ul>

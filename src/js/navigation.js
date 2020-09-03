@@ -3,6 +3,11 @@ import { initHomePage } from './initialHomePage';
 import { getFilmDetails } from './detailsPage';
 import headerMarkup from '../templates/htmlHeader.hbs';
 import footerMarkup from '../templates/htmlFooter.hbs';
+import {
+    renderUlTemplateFunc,
+    drawWatchedFilmList,
+    drawQueueFilmList,
+} from './libraryPage';
 
 const refs = {
     header: document.querySelector('.header'),
@@ -30,7 +35,7 @@ function clearMainHTML() {
     document.querySelector('.main').innerHTML = '';
 }
 
-function returnToStart() {
+export function returnToStart() {
     window.scrollTo({
         top: 0,
         left: 0,
@@ -41,6 +46,14 @@ function returnToStart() {
 document.querySelector('body').addEventListener('click', onBodyClick);
 
 function onBodyClick(event) {
+    //!TODO: При клікі на разне різні фільми в showDetails;
+    // console.log(document.querySelector(`.sectionFilms`));
+    // console.log(event.target.dataset.id);
+
+    if (event.target === navRefs.footerBtn) {
+        returnToStart();
+    }
+
     if (event.target.dataset.id !== undefined) {
         if (document.querySelector('.detailsPage') !== null) {
             return;
@@ -51,20 +64,36 @@ function onBodyClick(event) {
         showDetails(event);
     }
 
-    if (
-        event.target === document.querySelector('img[alt="LOGO"]') ||
-        event.target === document.querySelector('li.nav-menu__item--home')
-    ) {
+    if (event.target === navRefs.logo || event.target === navRefs.homeBtn) {
         apiServices.selectedMovieId = 0;
-        apiServices.firstLoadPage = false;
+        apiServices.query = '';
         clearMainHTML();
         removeClassDetaislPage();
         showHomePage();
     }
 
-    // if (event.target === document.querySelector('li.nav-menu__item--library')) {
-    //     console.log('click on library');
-    // }
+    if (event.target === navRefs.libraryBtn) {
+        console.log('click on library');
+        clearMainHTML();
+        removeClassDetaislPage();
+        renderUlTemplateFunc();
+    }
+
+    if (event.target === document.querySelector('.libraryPage__btnWatched')) {
+        document.querySelector('.libraryPage__filmsList').innerHTML = '';
+        document.querySelector('.libraryPage__btnWatched').disabled = true;
+        document.querySelector('.libraryPage__btnFavorite').disabled = false;
+        const films = JSON.parse(localStorage.getItem('watchedFilms'));
+        drawWatchedFilmList(films);
+    }
+
+    if (event.target === document.querySelector('.libraryPage__btnFavorite')) {
+        document.querySelector('.libraryPage__filmsList').innerHTML = '';
+        document.querySelector('.libraryPage__btnFavorite').disabled = true;
+        document.querySelector('.libraryPage__btnWatched').disabled = false;
+        const films = JSON.parse(localStorage.getItem('queueFilms'));
+        drawWatchedFilmList(films);
+    }
 }
 
 function showDetails(event) {

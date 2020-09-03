@@ -1,12 +1,27 @@
 import mainInput from '../templates/mainInput.hbs';
 import mainButton from '../templates/mainButton.hbs';
 import apiServices from './apiServices';
-import { initHomePage, createCardFunc } from './initialHomePage';
+import { createCardFunc } from './initialHomePage';
+import { returnToStart } from './navigation';
 
 const initSearchedFilms = async() => {
     const films = await apiServices.getSearch();
     nextButtonHide(films);
     createCardFunc(films);
+
+    if (films.length < 1) {
+        document
+            .querySelector('.js-plaginationPageNumber')
+            .classList.add('homePage__hide');
+        errorNotis();
+        return;
+    } else {
+        document
+            .querySelector('.js-plaginationPageNumber')
+            .classList.remove('homePage__hide');
+    }
+    document.querySelector('.js-plaginationPageNumber').textContent =
+        apiServices.page;
 };
 
 const initFilms = async() => {
@@ -31,30 +46,14 @@ export function renderMainInput() {
 
 export function renderMainPaginationBlock() {
     const markup = mainButton();
-
     document.querySelector('.main').insertAdjacentHTML('beforeend', markup);
-}
-
-if (document.querySelector('.js-plaginationPageNumber') !== null) {
     document.querySelector('.js-plaginationPageNumber').textContent =
         apiServices.page;
+
     document
         .querySelector('body')
         .addEventListener('click', plaginationNavigation);
-    document.querySelector('#js-backButton').classList.add('homePage__hide');
-    document.querySelector('body').addEventListener('input', searchFilms);
     document.querySelector('body').addEventListener('keydown', searchFilmsEnter);
-}
-
-// document.querySelector('.js-plaginationPageNumber').textContent =
-//     apiServices.page;
-document.querySelector('body').addEventListener('click', plaginationNavigation);
-// document.querySelector('#js-backButton').classList.add('homePage__hide');
-document.querySelector('body').addEventListener('input', searchFilms);
-document.querySelector('body').addEventListener('keydown', searchFilmsEnter);
-
-export function searchFilms(event) {
-    apiServices.query = event.target.value;
 }
 
 function errorNotis() {
@@ -78,8 +77,12 @@ function errorNotis() {
 }
 
 function searchFilmsEnter(event) {
+    if (document.querySelector('.sectionFilms') === null) {
+        return;
+    }
     if (event.key === 'Enter') {
         event.preventDefault();
+        apiServices.query = document.querySelector('.js-input').value;
         if (document.querySelector('.js-input').value === '') {
             errorNotis();
             return;
@@ -89,14 +92,25 @@ function searchFilmsEnter(event) {
         initSearchedFilms();
         clearInput();
         clearCardList();
-        // apiServices.query = '';
-        // clearNotification();
         resetPage();
+        prevBtnVisible();
     }
 }
 
+function onButtonClick() {
+    document.querySelector('.js-plaginationPageNumber').textContent =
+        apiServices.page;
+    clearCardList();
+    if (apiServices.query !== '') {
+        initSearchedFilms();
+    } else {
+        initFilms();
+    }
+    returnToStart();
+}
+
 function plaginationNavigation(event) {
-    if (document.querySelector('.detailsPage') !== null) {
+    if (document.querySelector('.sectionFilms') === null) {
         return;
     }
 
@@ -113,66 +127,32 @@ function plaginationNavigation(event) {
         }
     }
     if (event.target === document.querySelector('#js-nextButton')) {
-        console.log(event.target);
         apiServices.page += 1;
-        document.querySelector('.js-plaginationPageNumber').textContent =
-            apiServices.page;
-        clearCardList();
-        if (apiServices.query !== '') {
-            initSearchedFilms();
-        } else {
-            initFilms();
-        }
-        // if (localStorage.getItem('input')) {
-        //     apiServices.query = localStorage.getItem('input');
-        //     initSearchedFilms();
-        // } else {
-        //     initHomePage();
-        // }
+        onButtonClick();
     }
     if (event.target === document.querySelector('#js-backButton')) {
         apiServices.page -= 1;
-        document.querySelector('.js-plaginationPageNumber').textContent =
-            apiServices.page;
-        clearCardList();
-        if (apiServices.query !== '') {
-            initSearchedFilms();
-        } else {
-            initFilms();
-        }
-
-        // initSearchedFilms();
-
-        // if (localStorage.getItem('input')) {
-        //     apiServices.query = localStorage.getItem('input');
-        //     initSearchedFilms();
-        // } else {
-        //     initHomePage();
-        // }
+        onButtonClick();
     }
+
+    prevBtnVisible();
+}
+
+function prevBtnVisible() {
     if (apiServices.page === 1) {
         document.querySelector('#js-backButton').classList.add('homePage__hide');
         return;
     } else {
         document.querySelector('#js-backButton').classList.remove('homePage__hide');
     }
-
-    // if (event.target === document.querySelector('#js-backButton'))
 }
 
 function resetPage() {
     apiServices.page = 1;
-    // document.querySelector('#js-backButton').classList.add('homePage__hide');
-    // document.querySelector('.js-plaginationPageNumber').textContent =
-    //     apiServices.page;
 }
 
 function clearInput() {
     document.querySelector('.js-input').value = '';
-}
-
-function clearNotification() {
-    document.querySelector('.error-note').innerHTML = '';
 }
 
 function clearCardList() {
