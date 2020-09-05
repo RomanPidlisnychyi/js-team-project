@@ -1,3 +1,14 @@
+.sectionFilms__list {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    @media (min-width: 768px) {
+        justify-content: space-between;
+    }
+}
+
 .sectionFilms__item {
     position: relative;
     width: 298px;
@@ -44,6 +55,7 @@
 .sectionFilms__img {
     width: 298px;
     height: 100%;
+    transition: transform 200ms ease-in-out;
     @media (min-width: 768px) {
         width: 344px;
         height: 100%;
@@ -54,5 +66,9 @@
     @media (min-width: 1024px) {
         width: 466px;
         height: 100%;
+    }
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.03);
     }
 }

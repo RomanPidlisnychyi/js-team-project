@@ -7,16 +7,24 @@ import {
     renderMainPaginationBlock,
 } from './searchAndPlaginationHomePage';
 
-const mainCardList = document.querySelector('.main-card-list');
-
 export const initHomePage = async() => {
     const films = await apiServices.get();
     createCardFunc(films);
 };
 
+function getReleaseYear(films) {
+    const newFilms = films.map(film => {
+        film.releaseYear = film.release_date.substring(0, 4);
+        return film;
+    });
+
+    return newFilms;
+}
+
 export function createCardFunc(items) {
-    const markupList = homePageList(items);
-    const markupItem = homePageListItems(items);
+    const newFilms = getReleaseYear(items);
+    const markupList = homePageList(newFilms);
+    const markupItem = homePageListItems(newFilms);
 
     if (document.querySelector('.sectionFilms__list') === null) {
         renderMainInput();

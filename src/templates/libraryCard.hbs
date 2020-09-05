@@ -1,6 +1,6 @@
 {{#each this}}
          <li class="libraryPage__FilmItem">
-                        <img class="libraryPage__filmImg" src="https://image.tmdb.org/t/p/w500/{{backdrop_path}}" alt="">
+                        <img class="libraryPage__filmImg" src="https://image.tmdb.org/t/p/w500/{{backdrop_path}}" alt="{{title}}" data-id="{{id}}">
                         <p class="libraryPage__FilmVote">{{vote_average}}</p>
                         <p class="libraryPage__FilmTitle">{{original_title}}</p>
                     </li>

@@ -22,7 +22,16 @@ $base-color: #addad6;
         width: 915px;
         padding: 25px 0;
     }
-    &__imgWrap {}
+    &__imgWrap {
+        background-color: rgba($base-color, $alpha: 0.3);
+        height: 400px;
+        @media (min-width: 768px) {
+            height: 526px;
+        }
+        @media (min-width: 1024px) {
+            height: 630px;
+        }
+    }
     &__img {
         width: 274px;
         display: block;
@@ -56,6 +65,9 @@ $base-color: #addad6;
             background-color: $base-color;
         }
     }
+    &__table td {
+        padding: 5px 15px;
+    }
     &__about {
         margin-bottom: 15px;
         align-self: start;
@@ -64,23 +76,33 @@ $base-color: #addad6;
         }
     }
     &__btnList {
+        display: flex;
         align-self: flex-start;
         margin-bottom: 20px;
     }
-    &__btnItem>button {
-        background-color: $base-color;
-        color: #fff;
-        padding: 5px 10px;
+    &__btnItem {
+        position: relative;
+        &:first-child {
+            margin-right: 10px;
+        }
+    }
+    &__btnItem button {
+        background-color: transparent;
+        padding: 5px 10px 5px 30px;
         border-radius: 15px;
-        border: none;
+        border: 1px solid transparent;
         outline: none;
         &:hover {
+            border-radius: 15px;
+            border: 1px solid $base-color;
             cursor: pointer;
         }
     }
-}
-
-//!TODO: container width
-td {
-    padding: 5px 15px;
+    &__btnIcon {
+        position: absolute;
+        z-index: -1;
+        left: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }

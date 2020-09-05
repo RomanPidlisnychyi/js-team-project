@@ -9,7 +9,10 @@
         background-color: rgb(243, 246, 246);
     }
     &__formblock {
-        // display: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         margin-bottom: 20px;
         box-shadow: 0px 5px 9px 1px rgba(0, 0, 0, 0.23);
         width: 100%;
@@ -17,11 +20,18 @@
     }
     &__form {
         display: flex;
+        width: fit-content;
+        position: relative;
         justify-content: center;
         padding-top: 20px;
         padding-bottom: 22px;
     }
+    &__searchIcon {
+        position: absolute;
+        left: 0;
+    }
     &__input {
+        padding-left: 20px;
         font-size: 15px;
         color: rgb(0, 0, 0);
         width: 236px;

@@ -1,41 +1,35 @@
 import renderUlTemplate from '../templates/renderUlTemplate.hbs';
 import itemsLibraryTemplate from '../templates/libraryCard.hbs';
 
-import '../font-awesome-4.7.0/css/font-awesome.min.css';
-
 export function drawWatchedFilmList(films) {
-    if (films.length !== 0) {
+    document
+        .querySelector('.libraryPage__emptyQueue')
+        .classList.add('libraryPage__hide');
+    if (films !== null) {
         insertLibraryItems(films);
-        document
-            .querySelector('.libraryPage__btnWatched')
-            .classList.add('libraryPage__btn--active');
-        document
-            .querySelector('.libraryPage__btnFavorite')
-            .classList.remove('libraryPage__btn--active');
-        document.querySelector('.libraryPage__emptyQueue').style.display = 'none';
-        document.querySelector('.libraryPage__emptyWatched').style.display = 'none';
     } else {
-        document.querySelector('.libraryPage__emptyWatched').style.display =
-            'block';
+        document
+            .querySelector('.libraryPage__emptyQueue')
+            .classList.add('libraryPage__hide');
+        document
+            .querySelector('.libraryPage__emptyWatched')
+            .classList.remove('libraryPage__hide');
     }
 }
 
 export function drawQueueFilmList(films) {
-    document.querySelector('.libraryPage__filmsList').innerHTML = '';
-    if (films.length !== 0) {
-        document
-            .querySelector('.libraryPage__btnFavorite')
-            .classList.add('libraryPage__btn--active');
-        document
-            .querySelector('.libraryPage__btnWatched')
-            .classList.remove('libraryPage__btn--active');
-        document.querySelector('.libraryPage__emptyQueue').style.display = 'none';
-        document.querySelector('.libraryPage__emptyWatched').style.display = 'none';
-        document.querySelector('.libraryPage__filmsList');
+    document
+        .querySelector('.libraryPage__emptyWatched')
+        .classList.add('libraryPage__hide');
+    if (films !== null) {
         insertLibraryItems(films);
     } else {
-        // document.querySelector('.libraryPage__filmsList').innerHTML = '';
-        document.querySelector('.libraryPage__emptyQueue').style.display = 'block';
+        document
+            .querySelector('.libraryPage__emptyWatched')
+            .classList.add('libraryPage__hide');
+        document
+            .querySelector('.libraryPage__emptyQueue')
+            .classList.remove('libraryPage__hide');
     }
 }
 

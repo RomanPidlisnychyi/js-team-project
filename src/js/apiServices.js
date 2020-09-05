@@ -1,16 +1,13 @@
 export default {
-    baseURL: 'https://api.themoviedb.org/3/movie/popular?',
-    genresURL: 'https://api.themoviedb.org/3/genre/movie/list?',
-    searchURL: 'https://api.themoviedb.org/3/search/movie?',
-    searchByIdURL: 'https://api.themoviedb.org/3/movie/',
+    baseURL: 'https://api.themoviedb.org/3/',
     apiKey: 'api_key=3ca4f0fa98e22b27d06819a16b26fd68',
     page: 1,
+    selectedMovieId: '',
     query: '',
-    selectedMovieId: 0,
     get() {
         const asyncFetchFilms = async() => {
             const response = await fetch(
-                `${this.baseURL}${this.apiKey}&page=${this.page}&query=${this.query}`,
+                `${this.baseURL}movie/popular?${this.apiKey}&page=${this.page}`,
             );
             const data = await response.json();
 
@@ -19,20 +16,10 @@ export default {
 
         return asyncFetchFilms();
     },
-    getGenres() {
-        const asyncFetchGenres = async() => {
-            const response = await fetch(`${this.genresURL}${this.apiKey}`);
-            const data = await response.json();
-
-            return data.genres;
-        };
-
-        return asyncFetchGenres();
-    },
     getSearch() {
         const asyncFetchSearch = async() => {
             const response = await fetch(
-                `${this.searchURL}${this.apiKey}&page=${this.page}&query=${this.query}`,
+                `${this.baseURL}search/movie?${this.apiKey}&page=${this.page}&query=${this.query}`,
             );
             const data = await response.json();
 
@@ -43,7 +30,7 @@ export default {
     },
     getFilmById(id = this.selectedMovieId) {
         const asyncFetchSearch = async() => {
-            const response = await fetch(`${this.searchByIdURL}${id}?${this.apiKey}`);
+            const response = await fetch(`${this.baseURL}movie/${id}?${this.apiKey}`);
             const data = await response.json();
             return data;
         };

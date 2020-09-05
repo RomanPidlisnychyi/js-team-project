@@ -1,25 +1,13 @@
 import apiServices from '../js/apiServices';
 import detailsPage from '../templates/detailsPage.hbs';
 
-if (JSON.parse(localStorage.getItem('queueFilms')) === null) {
-    localStorage.setItem('queueFilms', JSON.stringify([]));
-}
+let queueFilms = JSON.parse(localStorage.getItem('queueFilms'));
 
-if (JSON.parse(localStorage.getItem('watchedFilms')) === null) {
-    localStorage.setItem('watchedFilms', JSON.stringify([]));
-}
-
-const queueFilms = JSON.parse(localStorage.getItem('queueFilms'));
-
-const watchedFilms = JSON.parse(localStorage.getItem('watchedFilms'));
+let watchedFilms = JSON.parse(localStorage.getItem('watchedFilms'));
 
 let selectedMovie;
 
 export const getFilmDetails = async() => {
-    if (apiServices.selectedMovieId === 0) {
-        return;
-    }
-
     selectedMovie = await apiServices.getFilmById();
 
     const markup = detailsPage(selectedMovie);
@@ -32,10 +20,10 @@ document.querySelector('body').onclick = onBodyClick;
 
 function onBodyClick(event) {
     if (event.target === document.querySelector('.detailsPage__btnAddFavorite')) {
-        btnControlQueue(event);
+        btnControlQueue();
     }
     if (event.target === document.querySelector('.detailsPage__btnAddWatched')) {
-        btnControlWatched(event);
+        btnControlWatched();
     }
 }
 
@@ -45,7 +33,7 @@ function btnQueueTextContent() {
     }
 
     const selectedFilmInColection = queueFilms.filter(
-        element => element.id === apiServices.selectedMovieId,
+        element => element === apiServices.selectedMovieId,
     );
 
     if (selectedFilmInColection.length > 0) {
@@ -63,7 +51,7 @@ function btnWatchedTextContent() {
     }
 
     const selectedFilmInColection = watchedFilms.filter(
-        element => element.id === apiServices.selectedMovieId,
+        element => element === apiServices.selectedMovieId,
     );
 
     if (selectedFilmInColection.length > 0) {
@@ -80,44 +68,60 @@ function onRenderDetailsPage() {
     btnWatchedTextContent();
 }
 
-function btnControlQueue(event) {
+function btnControlQueue() {
+    if (JSON.parse(localStorage.getItem('queueFilms')) === null) {
+        localStorage.setItem('queueFilms', JSON.stringify([]));
+        queueFilms = JSON.parse(localStorage.getItem('queueFilms'));
+    }
+
     const selectedFilmInColection = queueFilms.filter(
-        element => element.id === apiServices.selectedMovieId,
+        element => element === apiServices.selectedMovieId,
     );
 
     if (selectedFilmInColection.length > 0) {
         queueFilms.forEach((element, index) => {
-            if (apiServices.selectedMovieId === element.id) {
+            if (apiServices.selectedMovieId === element) {
                 queueFilms.splice(index, 1);
                 localStorage.setItem('queueFilms', JSON.stringify(queueFilms));
                 document.querySelector('.detailsPage__btnAddFavorite').textContent =
                     'Add to queue';
+                if (queueFilms.length < 1) {
+                    localStorage.removeItem('queueFilms');
+                }
             }
         });
     } else {
-        queueFilms.push(selectedMovie);
+        queueFilms.push(selectedMovie.id);
         localStorage.setItem('queueFilms', JSON.stringify(queueFilms));
         document.querySelector('.detailsPage__btnAddFavorite').textContent =
             'Delete from queue';
     }
 }
 
-function btnControlWatched(event) {
+function btnControlWatched() {
+    if (JSON.parse(localStorage.getItem('watchedFilms')) === null) {
+        localStorage.setItem('watchedFilms', JSON.stringify([]));
+        watchedFilms = JSON.parse(localStorage.getItem('watchedFilms'));
+    }
+
     const selectedFilmInColection = watchedFilms.filter(
-        element => element.id === apiServices.selectedMovieId,
+        element => element === apiServices.selectedMovieId,
     );
 
     if (selectedFilmInColection.length > 0) {
         watchedFilms.forEach((element, index) => {
-            if (apiServices.selectedMovieId === element.id) {
+            if (apiServices.selectedMovieId === element) {
                 watchedFilms.splice(index, 1);
                 localStorage.setItem('watchedFilms', JSON.stringify(watchedFilms));
                 document.querySelector('.detailsPage__btnAddWatched').textContent =
                     'Add to watched';
+                if (watchedFilms.length < 1) {
+                    localStorage.removeItem('watchedFilms');
+                }
             }
         });
     } else {
-        watchedFilms.push(selectedMovie);
+        watchedFilms.push(selectedMovie.id);
         localStorage.setItem('watchedFilms', JSON.stringify(watchedFilms));
         document.querySelector('.detailsPage__btnAddWatched').textContent =
             'Delete from watched';

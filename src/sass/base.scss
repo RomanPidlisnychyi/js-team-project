@@ -11,6 +11,7 @@ html {
 }
 
 body {
+    font-family: $main-font;
     font-size: 12px;
     font-weight: 400;
     margin: 0 auto;
@@ -20,4 +21,16 @@ img {
     display: block;
     max-width: 100%;
     height: auto;
+}
+
+.link {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.list {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
 }
