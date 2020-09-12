@@ -3,7 +3,7 @@ import mainButton from '../templates/mainButton.hbs';
 import apiServices from './apiServices';
 import { initHomePage, createCardFunc } from './initialHomePage';
 
-const initSearchedFilms = async() => {
+const initSearchedFilms = async () => {
     const films = await apiServices.getSearch();
     if (films.length < 20) {
         document.querySelector('#js-nextButton').classList.add('homePage__hide');
@@ -13,7 +13,7 @@ const initSearchedFilms = async() => {
     createCardFunc(films);
 };
 
-const initFilms = async() => {
+const initFilms = async () => {
     const films = await apiServices.get();
     if (films.length < 20) {
         document.querySelector('#js-nextButton').classList.add('homePage__hide');
@@ -23,18 +23,34 @@ const initFilms = async() => {
     createCardFunc(films);
 };
 
-document
-    .querySelector('.main-input')
-    .insertAdjacentHTML('beforeend', mainInput());
-document
-    .querySelector('.main-pagination')
-    .insertAdjacentHTML('beforeend', mainButton());
-document.querySelector('.js-plaginationPageNumber').textContent =
-    apiServices.page;
-document.querySelector('body').addEventListener('click', plaginationNavigation);
-document.querySelector('#js-backButton').classList.add('homePage__hide');
-document.querySelector('body').addEventListener('input', searchFilms);
-document.querySelector('body').addEventListener('keydown', searchFilmsEnter);
+// document
+//     .querySelector('.main-input')
+//     .insertAdjacentHTML('beforeend', mainInput());
+// document
+//     .querySelector('.main-pagination')
+//     .insertAdjacentHTML('beforeend', mainButton());
+// document.querySelector('.js-plaginationPageNumber').textContent =
+//     apiServices.page;
+// document.querySelector('body').addEventListener('click', plaginationNavigation);
+// document.querySelector('#js-backButton').classList.add('homePage__hide');
+// document.querySelector('body').addEventListener('input', searchFilms);
+// document.querySelector('body').addEventListener('keydown', searchFilmsEnter);
+
+export function initPlagination() {
+    document
+        .querySelector('.main-input')
+        .insertAdjacentHTML('beforeend', mainInput());
+    document
+        .querySelector('.main-pagination')
+        .insertAdjacentHTML('beforeend', mainButton());
+    document.querySelector('.js-plaginationPageNumber').textContent =
+        apiServices.page;
+    document.querySelector('body').addEventListener('click', plaginationNavigation);
+    document.querySelector('#js-backButton').classList.add('homePage__hide');
+    document.querySelector('body').addEventListener('input', searchFilms);
+    document.querySelector('body').addEventListener('keydown', searchFilmsEnter);
+}
+initPlagination();
 
 function searchFilms(event) {
     apiServices.query = event.target.value;
@@ -124,6 +140,9 @@ function plaginationNavigation(event) {
         // } else {
         //     initHomePage();
         // }
+    }
+    if (!document.querySelector('#js-backButton')) {
+        return
     }
     if (apiServices.page === 1) {
         document.querySelector('#js-backButton').classList.add('homePage__hide');

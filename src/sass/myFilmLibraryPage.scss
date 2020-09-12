@@ -1,24 +1,15 @@
-.libraryPage__btnFavorite,
-.libraryPage__btnWatched {
-  padding: 11.5px 40px;
-  font-size: 16px;
-  font-family: 'Roboto';
-  color: rgb(0, 0, 0);
-  line-height: 1;
-  text-transform: capitalize;
-  background: #77c1bb;
-  border: none;
+.fa {
+  color: #f00;
+  font-size: 25px;
 }
 
-.library__buttons-wrap {
+
+.libraryPage__buttons-wrap {
   margin: 0 auto;
   background-color: rgb(243, 246, 246);
   box-shadow: 0px 5px 9px 1px rgba(0, 0, 0, 0.23);
   height: 66px;
-
-  @media (min-width: 768px) {
-    // width: 740px;
-  }
+  width: 100%;
 }
 
 .libraryPage__btnList {
@@ -34,7 +25,7 @@
   &::after {
     content: '';
     position: absolute;
-    // z-index: -5;
+    // z-index: -1;
     display: block;
     left: 50%;
     bottom: 0;
@@ -49,7 +40,32 @@
   list-style: none;
 }
 
-.library__cards-wrap {
+.libraryPage__btnItem:hover {
+  cursor: pointer;
+}
+
+.libraryPage__btnFavorite,
+.libraryPage__btnWatched {
+  padding: 11.5px 40px;
+  font-size: 16px;
+  font-family: 'Roboto';
+  color: rgb(0, 0, 0);
+  line-height: 1;
+  text-transform: capitalize;
+  background: rgb(243, 246, 246);
+  border: none;
+  outline: none;
+
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.libraryPage__btn--active {
+  background: #77c1bb;
+}
+
+.libraryPage__cards-wrap {
   @media (min-width: 768px) {
     width: 712px;
     margin: 0 auto;
@@ -61,41 +77,48 @@
   }
 }
 
-.library__cards {
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
+.libraryPage__wrapper {
   width: 298px;
-  padding-top: 14px;
-
+  margin: 0 auto;
   @media (min-width: 768px) {
     width: 712px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 0;
   }
-
   @media (min-width: 1024px) {
     width: 964px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 0;
   }
 }
 
-.sectionFilms__item {
+.libraryPage__filmsList {
+  padding-top: 15px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 13px;
+
+  @media (min-width: 768px) {
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+}
+
+.libraryPage__FilmItem {
+  background: #000000;
   position: relative;
   flex-basis: 298px;
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 9px;
   margin-right: 10px;
+  
   &:nth-last-child(1) {
     margin-bottom: 0px;
   }
+
+  height: 156px;
+
   @media (min-width: 768px) {
+    height: 180px;
     flex-basis: 344px;
     &:nth-last-child(2) {
       margin-bottom: 0px;
@@ -103,80 +126,86 @@
   }
   @media (min-width: 1024px) {
     flex-basis: 466px;
-  }
-}
-// .sectionFilms__title {
-//   position: absolute;
-//   bottom: 12px;
-//   left: 10px;
-//   top: 146px;
-//   margin: 0;
-//   font-size: 12.3px;
-//   background: transparent;
-//   @media (min-width: 768px) {
-//     top: 170px;
-//     font-size: 14.2px;
-//   }
-//   @media (min-width: 1024px) {
-//     font-size: 19.25px;
-//     left: 16px;
-//     top: 228px;
-//   }
-//   color: rgb(252, 252, 252);
-//   font-family: 'Roboto';
-//   font-weight: 400;
-// }
-
-.sectionFilms__list {
-  padding-top: 15px;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  @media (min-width: 768px) {
-    justify-content: space-between;
-  }
-}
-
-.wrapper {
-  width: 298px;
-  margin: 0 auto;
-  //  padding: 0px 10px;
-  @media (min-width: 768px) {
-    width: 712px;
-    // padding: 0px 30px;
-  }
-  @media (min-width: 1024px) {
-    width: 964px;
-    // padding: 0px 30px;
-  }
+    height: 245px;
+  }  
 }
 
 .libraryPage__filmImg {
   width: 289px;
+  height: 156px;
+
   @media (min-width: 768px) {
     width: 344px;
-    // padding: 0px 30px;
+    height: 180px;
   }
   @media (min-width: 1024px) {
     width: 466px;
-    // padding: 0px 30px;
+    height: 245px;
   }
 }
 
-.hide{
-  opacity: 0;
-}
-
-.emptyWatched{
+.libraryPage__empty {
   display: none;
   position: absolute;
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
-.emptyQueue{
-  display: none;
+.libraryPage__show {
+  display: block;
+  opacity: 1;
+}
+// =======================card list===========================
+
+.libraryPage__FilmVote {
+  border-radius: 6px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: inset 0px 0px 2.79px 0.21px rgba(0, 0, 0, 0.35),
+    inset 0px 0px 2.64px 1.36px rgba(0, 0, 0, 0.35);
+  font-size: 12.75px;
+
+  @media (min-width: 768px) {
+    font-size: 15px;
+    width: 36px;
+    height: 19px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 20.3px;
+    width: 49px;
+    height: 26px;
+  }
+
+  font-family: 'Roboto';
+  color: rgb(0, 0, 0);
+  line-height: 1.33;
+  text-align: center;
   position: absolute;
-  top: 50%;
+  margin: 0;
+  right: 7px;
+  top: 6px;
+  width: 31px;
+  height: 17px;
+  z-index: 63;
+}
+
+.libraryPage__FilmTitle {
+  position: absolute;
+  bottom: 12px;
+  left: 10px;
+  margin: 0;
+  font-size: 12.3px;
+
+  @media (min-width: 768px) {
+    font-size: 14.2px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 19.25px;
+  }
+
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto';
 }

@@ -5,36 +5,44 @@
   overflow: hidden;
   background: black;
   margin-bottom: 9px;
+  height: 156px;
+
   &:nth-last-child(1) {
-    margin-bottom: 0px;
+    // margin-bottom: 0px;
+    // margin-bottom: 15px;
   }
+
   @media (min-width: 768px) {
+    height: 180px;
     flex-basis: 344px;
     &:nth-last-child(2) {
-      margin-bottom: 0px;
+      // margin-bottom: 0px;
+      // margin-bottom: 15px;
     }
   }
   @media (min-width: 1024px) {
     flex-basis: 466px;
+    height: 245px;
   }
 }
 
+
 .sectionFilms__title {
   position: absolute;
-  bottom: 12px;
   left: 10px;
-  top: 146px;
+  // top: 146px;
+  bottom: 12px;
   margin: 0;
   font-size: 12.3px;
   background: transparent;
   @media (min-width: 768px) {
-    top: 170px;
+    // top: 170px;
     font-size: 14.2px;
   }
   @media (min-width: 1024px) {
     font-size: 19.25px;
     left: 16px;
-    top: 228px;
+    // top: 228px;
   }
   color: rgb(252, 252, 252);
   font-family: 'Roboto';

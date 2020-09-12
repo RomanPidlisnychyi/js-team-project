@@ -1,89 +1,66 @@
-// import 'films-queue-test.js';
+import renderUlTemplate from '../templates/renderUlTemplate.hbs';
+import itemsLibraryTemplate from '../templates/libraryCard.hbs';
 
-// import  activeDetailsPage from './';
-// import itemsLibraryTemplate from '../templates/libraryCard.hbs';
-// import arrayQueue from './films-queue-test.js';
-// import arrayWatched from './films-watched.js';
-
+import arrayQueue from './films-queue-test.js'; // !local storage
+import arrayWatched from './films-watched.js'; // !local storage
 // import apiServices from '../js/apiServices';
 
-// const getFilms = async () => {
-//     const films = await apiServices.get();
-//     console.log(films);
-// };
+import '../font-awesome-4.7.0/css/font-awesome.min.css';
 
-// getFilms();
+document.querySelector('body').addEventListener('click', drawWatchedFilmList);
+document.querySelector('body').addEventListener('click', drawQueueFilmList);
 
-// const refsDOM = {
-//     ulLibrary: document.querySelector('.sectionFilms__list'),
-//     buttonQueue: document.querySelector('.libraryPage__btnFavorite'),
-//     buttonWatched: document.querySelector('.libraryPage__btnWatched'),
-//     libraryImg: document.querySelector('.libraryPage__filmImg'),
-//     emptyQueue: document.querySelector('.emptyQueue'),
-//     emptyWatched: document.querySelector('.emptyWatched')
-// }
-// // console.log('bq: ', refsDOM.buttonQueue);
-// refsDOM.buttonQueue.addEventListener('click', drawQueueFilmList);
-// refsDOM.buttonWatched.addEventListener('click', drawWatchedFilmList);
+export function readLocalStorage(key){
+    const stringFilmsWatched = localStorage.getItem(key);
+    const parsedFilmsWatched = JSON.parse(stringFilmsWatched);
+    return parsedFilmsWatched;
+}
+function drawWatchedFilmList(event) {
+    const el = event.target;
+    const btnW = document.querySelector('.libraryPage__btnWatched');    
+    if (el === btnW) {
+        document.querySelector('.libraryPage__filmsList').innerHTML = '';
+        const readedStorage = readLocalStorage('filmsWatched');
 
-// const createLibraryCardFunc = (imgPath, filmTitle, movieId, voteAverage) => {
-//     const liLibraryItems = document.createElement('li');
-//     // liLibraryItems.addEventListener('click', function(){ activeDetailsPage(movieId, true)});
-//     const vote = document.createElement('p');
-//     const title = document.createElement('h2');
+        if (readedStorage.length != 0) {   
+            insertLibraryItems(readedStorage);
+            document.querySelector('.libraryPage__btnWatched').classList.add('libraryPage__btn--active');
+            document.querySelector('.libraryPage__btnFavorite').classList.remove('libraryPage__btn--active');
+            document.querySelector('.libraryPage__emptyQueue').classList.remove('libraryPage__show');
+            document.querySelector('.libraryPage__emptyWatched').classList.remove('libraryPage__show');
+        } else {
+            document.querySelector('.libraryPage__emptyQueue').classList.remove('libraryPage__show');
+            document.querySelector('.libraryPage__emptyWatched').classList.add('libraryPage__show');
+        }
+    }
+}
 
-// }
+function drawQueueFilmList(event) {
+    if (event.target == document.querySelector('.libraryPage__btnFavorite')) {
+        document.querySelector('.libraryPage__filmsList').innerHTML = '';
+        const readedStorage = readLocalStorage('filmsQueue');
 
-// function drawWatchedFilmList() {
-//     if (arrayWatched.length != 0) {
-//         refsDOM.emptyQueue.style.display = 'none';
-//         refsDOM.emptyWatched.style.display = 'none';
-//         insertLibraryItems(arrayWatched);
-//     } else {
-//         refsDOM.ulLibrary.innerHTML = '';
-//         refsDOM.emptyWatched.style.display = 'block';
-//     }
-//     // const fragment;
+        if (readedStorage.length != 0) {
+            document.querySelector('.libraryPage__btnFavorite').classList.add('libraryPage__btn--active');
+            document.querySelector('.libraryPage__btnWatched').classList.remove('libraryPage__btn--active');
+            document.querySelector('.libraryPage__emptyQueue').classList.remove('libraryPage__show');
+            document.querySelector('.libraryPage__emptyWatched').classList.remove('libraryPage__show');
+            insertLibraryItems(readedStorage);
+        } else {
+            document.querySelector('.libraryPage__emptyWatched').classList.remove('libraryPage__show');
+            document.querySelector('.libraryPage__emptyQueue').classList.add('libraryPage__show');
+        }
+    }
+}
 
-//     // if (filmsQueue.length != 0){
-//     //     filmsQueue.map(movie => {
-//     //         createLibraryCardFunc(movie.backdrop_path, movie.original_title, movie.id, movie.vote_average)
-//     //         refsDOM.ulLibrary.innerHTML = '';
-//     //     })
-//     // }
-// }
+export function insertLibraryItems(items) {
+    const template0 = itemsLibraryTemplate(items);
+    document.querySelector('.libraryPage__filmsList').insertAdjacentHTML('beforeend', template0);
+}
 
-// function drawQueueFilmList() {
-//     if (arrayQueue.length != 0) {
-//         refsDOM.emptyQueue.style.display = 'none';
-//         refsDOM.emptyWatched.style.display = 'none';
-//         insertLibraryItems(arrayQueue);
-//     } else {
-//         refsDOM.ulLibrary.innerHTML = '';
-//         refsDOM.emptyQueue.style.display = 'block';
-//     }
-// }
+export function renderUlTemplateFunc() {
+    const template = renderUlTemplate();
+    document.querySelector('.main').insertAdjacentHTML('beforeend', template);
+}
 
-// // const  drawWatchedFilmList = (filmsWatched) => {
-// //     // const fragment;
-
-// //     if (filmsWatched.length != 0){
-// //         filmsWatched.map(movie => {
-// //             createLibraryCardFunc(movie.backdrop_path, movie.original_title, movie.id, movie.vote_average)
-// //             refsDOM.ulLibrary.innerHTML = '';
-// //         })
-// //     }
-// // }
-
-// function insertLibraryItems(items) {
-//     refsDOM.ulLibrary.innerHTML = '';
-//     const template = itemsLibraryTemplate(items);
-
-//     refsDOM.ulLibrary.insertAdjacentHTML('beforeend', template);
-//     console.log('refs.ulLibrary: ', refsDOM.ulLibrary);
-// }
-
-// // insertLibraryItems(arrayQueue);
-// // const localWatched = localStorage.getItem('filmsWatched');
-// // console.log('localWatched: ', localWatched);
-// // console.log('arrayTest: ', arrayQueue);
+// renderUlTemplateFunc();
